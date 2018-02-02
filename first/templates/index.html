@@ -1,77 +1,46 @@
 {% load static %}
 <html>
-
-	
-
-<title>Sports Events Management Platform for Colleges</title>
-
-<head>
-
-<link rel="icon" href="{% static 'tabicon.png' %}">
-
-<link rel="stylesheet" href="{% static 'style.css' %}">
-
-<meta name="Description" content="Sports Events Management Platform for Colleges"/>
-
-</head>
-
-<body>
-
-<div class="fb-header-base">
-
-</div>
-
-<form action="/login" method="POST">
-{% csrf_token %}
-
-
-<div class="fb-header">
-
-<div id="intro1" class="fb-body">Sports Event Management<br>
-
-
-<div id="form1" class="fb-header">Username<br>
-
-<input placeholder="Username" type="mail" name="name" /><br>
-
-</div>
-
-<div id="form2" class="fb-header">Password<br>
-
-<input placeholder="Password" type="password" name="password" /><br>
-
-Forgotten your password?
-
-</div>
-
-</div>
-
-</div>
-
-<input type="submit" class="submit1" value="login" />
-</form>
-
-<div class="fb-body">
-
-
-</div>
-<div id="intro2" class="fb-body"><br>
-A multi-sport event is an organized sports event, often held over multiple days, featuring competition in many different sports between organized teams of athletes from different colleges.
-
-</div>
-
-<div id="img2" class="fb-body"><img src="{% static 'login.jpg' %}" /></div>
-
-</div>
-
-<div class="fb-body-footer">
-
-<div id="fb-body-footer-base" class="fb-body-footer">India<br><hr>
-
-Sign Up	Log In	&copy; www.test.in &nbsp;&nbsp; Design by angular team</div>
-
-</div>
-
-</body>
-
+	<title>Sports Events Management Platform for Colleges</title>
+	<head>
+		<link rel="icon" href="{% static 'tabicon.png' %}">
+		<link rel="stylesheet" href="{% static 'style.css' %}">
+		<link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+		<script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+		<meta name="Description" content="Sports Events Management Platform for Colleges"/>
+	</head>
+	<body>
+		<div class="fb-header-base"></div>
+		<form action="/login" method="POST">
+			{% csrf_token %}
+			<div class="fb-header">
+				<div id="intro1" class="fb-body">Sports Event Management<br>
+					<div class="form-inline">
+						<div class="form-group">
+    						<div id="form1" class="fb-header">Username<br>
+								<input placeholder="Username" type="mail" name="name" /><br>
+							</div>
+						</div>
+						<div class="form-group">
+							<div id="form2" class="fb-header">Password<br>
+								<input placeholder="Password" type="password" name="password" /><br>
+								Forgotten your password?
+							</div>
+						</div>
+						<input type="submit" class="submit1" value="login" />
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="fb-body">
+		</div>
+		<div id="intro2" class="fb-body"><br>
+			A multi-sport event is an organized sports event, often held over multiple days, featuring competition in many different sports between organized teams of athletes from different colleges.
+		</div>
+		<div id="img2" class="fb-body"><img src="{% static 'login.jpg' %}" /></div>
+		<div class="fb-body-footer">
+			<div id="fb-body-footer-base" class="fb-body-footer">India<br><hr>
+				Sign Up	Log In	&copy; www.test.in &nbsp;&nbsp; Design by angular team
+			</div>
+		</div>
+	</body>
 </html>
