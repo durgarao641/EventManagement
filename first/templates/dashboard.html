@@ -31,9 +31,9 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.html">
+                    <a href="dashboard">
                         <i class="ti-panel"></i>
-                        <p>Dashboard</p>
+                        <p>Events</p>
                     </a>
                 </li>
                 <li>
@@ -123,22 +123,24 @@
                 <div class="row">
 
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card" style="background-color: #d1f2eb " id="cardcontent">
                             <div class="header">
-                                <h4 class="title">Events</h4>
+                                <h4 class="title"><b>Events</b>
+                                    <a href="#" class="btn btn-info" onclick="create_event()" role="button" style="float: right;color: green">Create Event</a>
+                                </h4>
                             </div>
                             <div class="content">
                                 <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th style="font-weight:bold">Name</th>
-                                            <th style="font-weight:bold">Date</th>
-                                            <th style="font-weight:bold">Organisors</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% if result.events %}
-                                            {% for event in result.events %}
+                                    {% if result.events %}
+                                        <thead>
+                                            <tr>
+                                                <th style="font-weight:bold">Name</th>
+                                                <th style="font-weight:bold">Date</th>
+                                                <th style="font-weight:bold">Organisors</th>
+                                            </tr>
+                                        </thead>
+                                        {% for event in result.events %}
+                                            <tbody>
                                                 <tr class='clickable-row' data-href='dashboard.html'>
                                                     <td>
                                                         {{ event.name }}
@@ -150,9 +152,10 @@
                                                         {{ event.organisors }}
                                                     </td>
                                                 </tr>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </tbody>
+                                            </tbody>
+                                        {% endfor %}
+                                    {% endif %}
+                                    
                                 </table>
                             </div>
                         </div>
@@ -208,17 +211,19 @@
 	<script type="text/javascript">
     	$(document).ready(function(){
 
+            name="{{ result.name }}"
+            if (name)
+            {
         	demo.initChartist();
             
         	$.notify({
             	icon: 'ti-gift',
             	message: "Welcome <b> {{ result.name }} </b>"
-
             },{
                 type: 'success',
                 timer: 4000
             });
-
+            }
     	});
 	</script>
 
@@ -229,4 +234,10 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        function create_event() {
+            document.getElementById("cardcontent").innerHTML='<object type="text/html" data="create_event" ></object>';
+}
+    </script>
+
 </html>
