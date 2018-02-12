@@ -123,10 +123,10 @@
                 <div class="row">
 
                     <div class="col-md-12">
-                        <div class="card" style="background-color: #d1f2eb; display:block;" id="cardevent">
+                        <div class="card" style="background-color: #d1f2eb " id="cardcontent">
                             <div class="header">
                                 <h4 class="title"><b>Events</b>
-                                    <a href="#" class="btn btn-info" onclick="replace();return false" role="button" style="float: right;color: green">Create Event</a>
+                                    <!-- <a href="#" class="btn btn-info" onclick="create_event()" role="button" style="float: right;color: green">Create Event</a> -->
                                 </h4>
                             </div>
                             <div class="content">
@@ -141,7 +141,7 @@
                                         </thead>
                                         {% for event in result.events %}
                                             <tbody>
-                                                <tr class='clickable-row' data-href='dashboard.html'>
+                                                <tr class='clickable-row'>
                                                     <td>
                                                         {{ event.name }}
                                                     </td>
@@ -151,6 +151,9 @@
                                                     <td>
                                                         {{ event.organisors }}
                                                     </td>
+                                                    <td hidden>
+                                                       {{event.id}}
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         {% endfor %}
@@ -158,22 +161,6 @@
                                     
                                 </table>
                             </div>
-                        </div>
-                        <div id="createevents" style="display:none; background-color: #d1f2eb;">
-                            <h4 align="center">Event Creation</h4>
-                            <form>
-                                <label>Event Name:</label>
-                                <input placeholder="Event Name" type="text" name="eventname"><br> <br>
-                                <label>Event Date:</label><br>
-                                <input placeholder="dd/mm/yyyy" type="date" name="eventdate"><br> <br>
-                                <select multiple>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <br> <br> <br>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -198,6 +185,8 @@
 
     </div>
 </div>
+
+
 </body>
 
     <!--   Core JS Files   -->
@@ -231,7 +220,7 @@
         	demo.initChartist();
             
         	$.notify({
-            	icon: 'ti-user',
+            	icon: 'ti-gift',
             	message: "Welcome <b> {{ result.name }} </b>"
             },{
                 type: 'success',
@@ -244,14 +233,20 @@
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
-            document.getElementById('testing').innerHTML = $(this).data("href");
+            /*document.getElementById('testing').innerHTML = $(this).data("href");*/
+            var tableData = $(this).children("td").map(function() {
+        return $(this).text();
+         }).get();
+            console.log(tableData);
+            /*alert("Your data is: " + $.trim(tableData[0]) + " , " + $.trim(tableData[1]) + " , " + $.trim(tableData[3]));*/
+            location.href="add_student?id=$.trim(tableData[0])";
             });
         });
     </script>
-    <script type="text/javascript"> 
-        function replace() { 
-        document.getElementById("cardevent").style.display="none";
-        document.getElementById("createevents").style.display="block"; 
-        } 
-    </script>
+    <!-- <script type="text/javascript">
+        function create_event() {
+            document.getElementById("cardcontent").innerHTML='<object type="text/html" data="create_event" ></object>';
+}
+    </script> -->
+
 </html>

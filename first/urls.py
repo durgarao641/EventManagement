@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^events$', views.login, name='login'),
     url(r'^dashboard$', views.dashboard, name='dashboard'),
     url(r'^create_event$', views.create_event, name='create_event'),
+    url(r'^add_student$', views.add_student, name='add_student'),
 ]

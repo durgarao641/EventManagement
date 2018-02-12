@@ -1,0 +1,163 @@
+{% load static %}
+
+<!doctype html>
+
+
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+
+
+  <title>Select List Actions - jQuery Plugin</title>
+
+  <meta name="description" content="Select List Actions - jQuery Plugin">
+
+  <script src="{% static 'jquery-1.10.2.js' %}" type="text/javascript"></script>
+
+  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" />
+
+  <script src="{% static 'jquery.selectlistactions.js' %}" type="text/javascript"></script>
+
+  <link href="{% static 'site.css' %}" rel="stylesheet"/>
+
+ 
+
+
+
+  <!--[if lt IE 9]>
+
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+
+  <![endif]-->
+
+</head>
+
+
+
+<body>
+
+	<div class="container">
+
+		<p>&nbsp;</p>
+
+		<div class="row style-select">
+
+			<div class="col-md-12">
+
+				<div class="subject-info-box-1">
+
+					<label>Available Students</label>
+
+					<select multiple class="form-control" id="lstBox1">
+
+					{% for student in result.students %}
+
+						<option>{{ student }}</option>
+
+					{% endfor %}
+
+					</select>
+
+				</div>
+
+
+
+				<div class="subject-info-arrows text-center">
+
+					<br /><br />
+
+					<input type='button' id='btnAllRight' value='>>' class="btn btn-default" /><br />
+
+					<input type='button' id='btnRight' value='>' class="btn btn-default" /><br />
+
+					<input type='button' id='btnLeft' value='<' class="btn btn-default" /><br />
+
+					<input type='button' id='btnAllLeft' value='<<' class="btn btn-default" />
+
+				</div>
+
+
+
+				<div class="subject-info-box-2">
+
+					<label>Selected Students</label>
+
+					<select multiple class="form-control" id="lstBox2">
+
+					</select>
+
+				</div>
+
+
+
+				<div class="clearfix"></div>
+
+			</div>
+
+		</div>
+
+		</br>
+
+		<a href="#" class="btn btn-success" id = "submit_test" onclick="submit_students()" role="button" style="float: right;white: green">Submit</a>
+
+	
+
+	<script>
+
+        $('#btnRight').click(function (e) {
+
+            $('select').moveToListAndDelete('#lstBox1', '#lstBox2');
+
+            e.preventDefault();
+
+        });
+
+
+
+        $('#btnAllRight').click(function (e) {
+
+            $('select').moveAllToListAndDelete('#lstBox1', '#lstBox2');
+
+            e.preventDefault();
+
+        });
+
+
+
+        $('#btnLeft').click(function (e) {
+
+            $('select').moveToListAndDelete('#lstBox2', '#lstBox1');
+
+            e.preventDefault();
+
+        });
+
+
+
+        $('#btnAllLeft').click(function (e) {
+
+            $('select').moveAllToListAndDelete('#lstBox2', '#lstBox1');
+
+            e.preventDefault();
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+
+        function submit_students() {
+
+            document.getElementById("submit_test").innerHTML='<object type="text/html" data="create_event" ></object>';
+
+}
+
+    </script>
+
+</body>
+
+</html>

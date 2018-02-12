@@ -23,7 +23,9 @@
 						<div class="form-group">
 							<div id="form2" class="fb-header">Password<br>
 								<input placeholder="Password" style="color:black" type="password" name="password" /><br>
-								Forgotten your password?
+								{% if error %}
+									<h7 style="color: red">Wrong Username or Password</h7>
+								{% endif %}
 							</div>
 						</div>
 						<input type="submit" class="submit1" value="login" />
