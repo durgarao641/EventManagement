@@ -1,19 +1,13 @@
+import uuid
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import HttpResponse
-from first.models import Users
+from django.http import HttpResponseRedirect
+from first.models import Users, Events
+from django.views.decorators.csrf import csrf_protect
  
 # Create your views here.
-events = [
-		{'name': 'ICC Cricket World cup', 'date': '25-feb-2018', 'organisors':'durga'},
-		{'name': 'FIFA', 'date': '10-mar-2018', 'organisors':'suresh'},
-		{'name': 'ICC Cricket World cup', 'date': '25-feb-2018', 'organisors':'durga'},
-		{'name': 'FIFA', 'date': '10-mar-2018', 'organisors':'suresh'}
-	]
 
-organizors = [
-		'durga', 'suresh', 'krishna', 'tiger', 'chaithanya'
-	]
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
@@ -26,19 +20,34 @@ def login(request):
 		if role == 'error':
 			return render(request, 'index.html', {'error': 'login errors'})
 		if role == 'admin':
-			return render(request, 'dashboard.html', {'result': {'name': request.POST['name'], 'events': get_events(), 'organizors': organizors}})
+			return render(request, 'dashboard.html', {'result': {'name': request.POST['name'], 'events': get_events(), 'organizors': get_organizors()}})
 		else:
-			return render(request, 'organizer.html', {'result': {'name': request.POST['name'], 'events': get_events(), 'organizors': organizors}})
+			return render(request, 'organizer.html', {'result': {'name': request.POST['name'], 'events': get_events(), 'organizors': get_organizors()}})
 	return render(request, 'index.html')
 
 def dashboard(request):
-	return render(request, 'dashboard.html', {'result': {'events': get_events()}})
+	return render(request, 'dashboard.html', {'result': {'events': get_events(), 'organizors': get_organizors()}})
 
+@csrf_protect
 def create_event(request):
-	return render(request, 'create_event.html')
+	if request.method == 'POST':
+		Events(uuid.uuid4(), request.POST['eventname'], request.POST['eventdate'], ''.join(request.POST.getlist('orgs[]'))).save()
+		return HttpResponseRedirect('dashboard', {'result': {'events': get_events(), 'organizors': get_organizors()}})
 
 def get_events():
-		return events
+	events = []
+	for event in Events.objects.all():
+		events.append(
+			{'eventid': event.event_id, 'name': event.name,
+			'date': event.date, 'organisors': event.organizors}
+		)
+	return events
+
+def get_organizors():
+	organizors = []
+	for user in Users.objects.filter(role='organizor'):
+		organizors.append(user.username)
+	return organizors
 
 def verify_user(username, password):
 	try:
@@ -53,7 +62,3 @@ def verify_user(username, password):
 def add_student(request):
     print (request.GET)
     return render(request, 'demo.html', {'result': {'students': get_students()}})
-
-def get_students():
-	students = ["sureshbabu", "durga", "sivaram", "krishna", "xyz", "zyx"]
-	return students

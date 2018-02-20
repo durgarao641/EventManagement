@@ -31,4 +31,3 @@ class EventWinners(models.Model):
     first_winner = models.CharField(max_length=25)
     second_winner = models.CharField(max_length=25)
     third_winner = models.CharField(max_length=25)
-    

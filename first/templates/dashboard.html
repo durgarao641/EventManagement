@@ -141,7 +141,7 @@
                                         </thead>
                                         {% for event in result.events %}
                                             <tbody>
-                                                <tr class='clickable-row' data-href='dashboard.html'>
+                                                <tr class='clickable-row'>
                                                     <td>
                                                         {{ event.name }}
                                                     </td>
@@ -161,19 +161,26 @@
                         </div>
                         <div id="createevents" style="display:none; background-color: #d1f2eb;">
                             <h4 align="center">Event Creation</h4>
-                            <form>
+                            <form action="create_event" method="POST">
+                                {% csrf_token %}
                                 <label>Event Name:</label>
                                 <input placeholder="Event Name" type="text" name="eventname"><br> <br>
                                 <label>Event Date:</label><br>
                                 <input placeholder="dd/mm/yyyy" type="date" name="eventdate"><br> <br>
-                                <select multiple>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
-                                </select>
+                                <label>Organizers:</label><br>
+                                <select multiple name='orgs[]'>
+                                    {% if result.organizors %}
+                                        {% for org in result.organizors %}
+                                            <option value="{{ org }}">{{ org }}</option>
+                                        {% endfor %}
+                                    {% endif %}                                        
+                                </select><br> <br>
+                                <button type="submit" class="btn btn-default" style="color: green;" >Create</button>
                                 <br> <br> <br>
                             </form>
+                        </div>
+                        <div id="eventdetails" style="display:none; background-color: #d1f2eb;">
+                            
                         </div>
                     </div>
                 </div>
